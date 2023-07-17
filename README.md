@@ -2,7 +2,7 @@
 ## Access the value from key
 ```python
 from box import ConfigBox
-# in dict() type we cannot cces using data.key
+# in dict() type we cannot access using `dot method` data.key
 data = ConfigBox({"key": "value", "key1": "value1"})
 # data acess method
 >>> data.key
@@ -33,6 +33,3 @@ def get_product(x: int, y: int):
     '''
     return x*y
 ```
-
-  git config user.email "realsanjeev2@gmail.com"
-  git config user.name "realsanjeev"
