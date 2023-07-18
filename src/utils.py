@@ -5,25 +5,27 @@ from box import ConfigBox
 from box.exceptions import BoxValueError
 
 from src.logger import logging
+from src.exception import CustomException
 
 def read_yaml(path: Path) -> ConfigBox:
     """Read `yaml` file and return a ConfigBox object.
 
     Args:
-        path: Path for yaml config file.
+        path(Path): Path for yaml config file.
 
     Returns:
         ConfigBox: ConfigBox object representing the content of the YAML file.
     """
-    print(os.listdir())
     try:
         with open(path) as yaml_fp:
             content = yaml.safe_load(yaml_fp)
             logging.info(f"Yaml Config file successfully loaded from path: {path}")
             return ConfigBox(content)
     except BoxValueError:
+        logging.critical(f"YAML file is empty in path: {path}")
         raise ValueError("YAML file is empty")
     except FileNotFoundError as err:
+        logging.error(f"YAML file not found in path: {path}")
         raise err
 
 def get_size(path: Path) -> float:
