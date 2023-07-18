@@ -1,4 +1,7 @@
-
+## work
+```
+pip install .
+```
 ## Access the value from key
 ```python
 from box import ConfigBox
