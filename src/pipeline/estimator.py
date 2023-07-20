@@ -1,4 +1,4 @@
-from transformers import AutoTokenizergi
+from transformers import AutoTokenizer
 from transformers import pipeline
 
 from src.configuration.config_manager import ConfigurationManager
