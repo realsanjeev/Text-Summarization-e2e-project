@@ -34,4 +34,4 @@ try:
     model_evaluation_config = ModelEvaluation(config=model_evaluation_config)
     # model_evaluation_config.evaluate()
 except Exception as err:
-    raise CustomException(err, sys)
+    raise CustomException(err, sys) from err

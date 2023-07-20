@@ -24,7 +24,7 @@ class ModelTrainer:
 
             if tokenizer is None:
                 tokenizer = AutoTokenizer.from_pretrained(self.config.model_ckpt)
-            model_pegasus = AutoModelForSeq2SeqLM.from_pretrained(self.config.model_ckpt).to(device)
+            model_pegasus = AutoModelForSeq2SeqLM.from_pretrained(self.config.model_ckpt, from_tf=True).to(device)
             seq2seq_data_collator = DataCollatorForSeq2Seq(tokenizer, model=model_pegasus)
 
             logging.info(f"Download the pretrained model: '{self.config.model_ckpt}' completed")

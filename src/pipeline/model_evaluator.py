@@ -6,7 +6,7 @@ import pandas as pd
 from transformers import TrainingArguments, Trainer
 from transformers import DataCollatorForSeq2Seq
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-from datasets import load_dataset, load_from_disk
+from datasets import load_from_disk
 
 from src.configuration.config import ModelEvaluationConfig
 from src.logger import logging
@@ -16,11 +16,28 @@ class ModelEvaluation:
     def __init__(self, config: ModelEvaluationConfig):
         self.config = config
         
-    def generate_batch_sized_chunks(self, list_of_elements, batch_size):
-        """split the dataset into smaller batches that we can process simultaneously
-        Yield successive batch-sized chunks from list_of_elements."""
-        for i in range(0, len(list_of_elements), batch_size):
-            yield list_of_elements[i : i + batch_size]
+    def generate_batch_sized_chunks(list_of_elements, batch_size: int):
+        '''
+        Generate batch-sized chunks from a given list of elements.
+
+        Args:
+            list_of_elements (List): The input list of elements.
+            batch_size (int): The desired batch size for chunking.
+
+        Yields:
+            List: A batch-sized chunk of elements from the input list.
+
+        Example:
+            >>> elements = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            >>> batch_size = 3
+            >>> for batch in generate_batch_sized_chunks(elements, batch_size):
+            >>>     print(batch)
+            [1, 2, 3]
+            [4, 5, 6]
+            [7, 8, 9]
+        '''
+        for index in range(0, len(list_of_elements), batch_size):
+            yield list_of_elements[index: index + batch_size]
 
     def evaluate(self, device=None):
         if device not in ["cpu", "cuda"]:
@@ -42,3 +59,4 @@ class ModelEvaluation:
         rouge_dict={}
         df = pd.DataFrame(rouge_dict, index=['pegasus'] )
         df.to_csv(self.config.metric_file_name, index=False)
+        
