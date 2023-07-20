@@ -27,7 +27,7 @@ class ModelTrainer:
             model_pegasus = AutoModelForSeq2SeqLM.from_pretrained(self.config.model_ckpt).to(device)
             seq2seq_data_collator = DataCollatorForSeq2Seq(tokenizer, model=model_pegasus)
 
-            logging.info(f"Downloading the pretrained model '{self.config.model_ckpt}'")
+            logging.info(f"Download the pretrained model: '{self.config.model_ckpt}' completed")
             # loading data
             dataset_samsum_pt = load_from_disk(self.config.data_path)
 
