@@ -14,12 +14,10 @@ class DataValidation:
             for file in all_files:
                 if file not in self.config.ALL_REQUIRED_FILES:
                     validation_status = False
-                    with open(self.config.STATUS_FILE, 'w') as fp:
-                        fp.write(f"Validation status of {file}: {validation_status}")
                 else:
                     validation_status = True
-                    with open(self.config.STATUS_FILE, 'w') as fp:
-                        fp.write(f"Validation status of {file}: {validation_status}")
+                with open(self.config.STATUS_FILE, 'a', encoding='utf-8') as fp:
+                    fp.write(f"Validation status of {file}: {validation_status}")
                 logging.info(f"{file} Files validation Success. VALIDATION_STATUS: {validation_status}")
             return validation_status
         
