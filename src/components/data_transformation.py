@@ -4,7 +4,7 @@ from src.logger import logging
 from src.exception import CustomException
 
 from transformers import AutoTokenizer
-from datasets import load_dataset, load_from_disk
+from datasets import load_from_disk
 
 class DataTransformation:
     def __init__(self, config: DataTransformationConfig):
