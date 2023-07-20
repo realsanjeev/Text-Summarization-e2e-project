@@ -42,7 +42,7 @@ def get_readme(filename: str) -> str:
 
 setup(
     name="text-summerization",
-    version="0.0.1",
+    version="0.0.2",
     author="realsanjeev",
     author_email="realsanjeev1@gmail.com",
     packages=find_packages(),

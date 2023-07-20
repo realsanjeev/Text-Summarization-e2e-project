@@ -1,6 +1,10 @@
-## work
+## Install text-summerization as package
 ```
 pip install .
+```
+If not work
+```
+python setup.py sdist
 ```
 ## Access the value from key
 ```python
