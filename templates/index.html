@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block main_container %}
+<form method="post" action="/">
+<textarea id='text' placeholder="Enter Your Text Here..." maxLength='1000' name="script"></textarea>
+<input type="button" id="load" value="summerize" class="buttons"></input>
+</form>
+<h2>SUMMARY</h2>
+<p>{{summary}}</p>
+{% endblock %}

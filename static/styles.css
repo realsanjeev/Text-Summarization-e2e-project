@@ -1,0 +1,40 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+body {
+    background: #5d5d5d;
+  }
+nav {
+    background-color: brown;
+    padding: 10px;
+    color: aliceblue;
+}
+nav .header {
+    text-align: center;
+    font-size: 40px;
+}
+  
+  p {
+    font-family: roboto;
+  }
+  
+  textarea {
+    background: #2d2d2d;
+    color: #7d7d7d;
+    width: 95%;
+    height: 40vh;
+    border-color: transparent;
+    border-radius: 5px;
+    margin: 10px;
+  }
+  
+  .buttons {
+    background-color: #3d3d3d;
+    color: #8d8d8d;
+    border-color: #8d8d8d;
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+  }

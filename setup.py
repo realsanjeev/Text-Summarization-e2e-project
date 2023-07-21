@@ -41,7 +41,7 @@ def get_readme(filename: str) -> str:
     return content
 
 setup(
-    name="text-summerization",
+    name="text-summarization",
     version="0.0.2",
     author="realsanjeev",
     author_email="realsanjeev1@gmail.com",
