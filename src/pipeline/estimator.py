@@ -46,9 +46,6 @@ class PredictionPipeline:
         gen_kwargs = {"length_penalty": 0.8, "num_beams": num_beams, "max_length": max_length}
         pipe = pipeline("summarization", model=self.config.model_path, tokenizer=self.tokenizer)
 
-        print("Dialogue:")
-        print(text)
-
         output = pipe(text, **gen_kwargs)[0]["summary_text"]
         print("\nModel Summary:")
         print(output)

@@ -3,7 +3,7 @@ from flask import Flask, render_template, request
 from src.pipeline.estimator import PredictionPipeline
 
 app = Flask(__name__)
-# predict_pipeline = PredictionPipeline()
+predict_pipeline = PredictionPipeline()
 
 logging.disable(logging.CRITICAL)
 
@@ -11,8 +11,7 @@ logging.disable(logging.CRITICAL)
 def home():
     if request.method == 'POST':
         script = request.form.get('script')
-        # summary_text = predict_pipeline.predict(script)
-        summary_text = script
+        summary_text = predict_pipeline.predict(script)
         return render_template('index.html',
                                summary=summary_text,
                                script=script)
