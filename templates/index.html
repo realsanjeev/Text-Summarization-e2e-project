@@ -1,9 +1,19 @@
 {% extends 'base.html' %}
 {% block main_container %}
 <form method="post" action="/">
-<textarea id='text' placeholder="Enter Your Text Here..." maxLength='1000' name="script"></textarea>
-<input type="button" id="load" value="summerize" class="buttons"></input>
+    <textarea
+    id='text'
+    placeholder="Enter Your Text Here..."
+    maxLength='1000'
+    name="script">{% if script %}{{ script }}{% endif %}</textarea>
+    <br/ >
+    <input type="submit" id="load" value="Summarize" class="buttons"></input>
 </form>
-<h2>SUMMARY</h2>
-<p>{{summary}}</p>
+
+{% if summary %}
+<div style="margin: 5px; padding-left: 3px;">
+    <h2>SUMMARY</h2>
+    <p>{{ summary }}</p>
+</div>
+{% endif %}
 {% endblock %}

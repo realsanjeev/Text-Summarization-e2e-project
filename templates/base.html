@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Text Summarization</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-        <link rel="icon" href="{{ url_for('static', filename='web-icon.png') }}">
-    </head>    
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='web-icon.png') }}">
+</head>
+
 <body>
     <nav>
         <h1 class="header">Text Summerization</h1 class="header">
     </nav>
-<input type="button" id="dark_mode" class="buttons" value="Dark Mode" onclick="switchToDark()"></input>
-<input type="button" id="light_mode" class="buttons" value="Light Mode" onclick="switchToLight()"></input>
-<br><br>
+    <input type="button" id="dark_mode" class="buttons" value="Dark Mode" onclick="switchToDark()"></input>
+    <input type="button" id="light_mode" class="buttons" value="Light Mode" onclick="switchToLight()"></input>
+    <br><br>
     <div class="container">
-    {% block main_container %}
-    {% endblock %}
+        {% block main_container %}
+        {% endblock %}
     </div>
     <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
+
 </html>
