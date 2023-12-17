@@ -1,8 +1,8 @@
 import os
 import sys
+import zipfile
 from urllib import request
 from pathlib import Path
-import zipfile
 
 from src.configuration.config import DataIngestionConfig
 from src.logger import logging
@@ -14,13 +14,13 @@ class DataIngestion:
         self.config = config
 
     def download_dataset(self):
-        '''Download dataset if not eexists loacal disk'''
+        '''Download dataset if not exists loacal disk'''
         if not os.path.exists(self.config.local_data_path):
             file, header = request.urlretrieve(url=self.config.source_URL,
                                                filename=self.config.local_data_path)
             logging.info(f"{file} successfully downloaded! Info: \n{header}")
         else:
-            logging.info(f"File already exists of size: \
+            logging.info(f"File already exists of size:\
                          {get_size(Path(self.config.local_data_path))} KB")
 
     def extract_zip_file(self, unzip_path=None):

@@ -11,7 +11,9 @@ from src.exception import CustomException
 class DataTransformation:
     def __init__(self, config: DataTransformationConfig):
         self.config = config
-        self.tokenizer = AutoTokenizer.from_pretrained(config.tokenizer_name, use_fast=False)
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            config.tokenizer_name, use_fast=False
+            )
 
     def convert_to_features(self, batch_data, tokenizer=None):
         try:
@@ -44,6 +46,7 @@ class DataTransformation:
             if os.path.exists(dataset_batch_path):
                 logging.warning(f"Batched dataset alreay exist at path: {dataset_batch_path}")
                 return dataset_batch_path
+            
             dataset_in_batch = dataset.map(self.convert_to_features, batched=True)
             dataset_in_batch.save_to_disk(dataset_batch_path)
             logging.info(f"Converting dataset in batch sucessful \

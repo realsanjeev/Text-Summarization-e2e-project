@@ -53,11 +53,14 @@ class ModelTrainer:
                 tokenizer = AutoTokenizer.from_pretrained(self.config.model_ckpt)
             model_save_path = os.path.join(self.config.root_dir, "pegasus-samsum-model")
 
+            print("*"*34, model_save_path)
+
             if os.path.exists(model_save_path) and exists_ok:
                 logging.warning(f'Model already exist in path: {model_save_path}')
                 tokenizer_save_path = os.path.join(self.config.root_dir, "tokenizer")
                 tokenizer.save_pretrained(tokenizer_save_path)
                 return model_save_path, tokenizer_save_path
+            
             model_pegasus = AutoModelForSeq2SeqLM.from_pretrained(self.config.model_ckpt).to(device)
             seq2seq_data_collator = DataCollatorForSeq2Seq(tokenizer, model=model_pegasus)
 

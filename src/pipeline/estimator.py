@@ -1,3 +1,4 @@
+import sys
 from transformers import AutoTokenizer
 from transformers import pipeline
 
@@ -9,11 +10,13 @@ class PredictionPipeline:
         '''
         Initialize the PredictionPipeline class for generating model predictions.
 
-        The constructor retrieves the model evaluation configuration using the ConfigurationManager and loads the tokenizer
+        The constructor retrieves the model evaluation configuration\
+            using the ConfigurationManager and loads the tokenizer
         from the specified tokenizer_path.
 
         Raises:
-            CustomException: If any error occurs while initializing the tokenizer, it will be captured and raised as a CustomException.
+            CustomException: If any error occurs while initializing the tokenizer,\
+                it will be captured and raised as a CustomException.
         '''
         self.config = ConfigurationManager().get_model_evaluation_config()
         try:
