@@ -4,7 +4,7 @@ E_DASH_DOT = '-e .'
 README_PATH = "README.md"
 REQUIREMENTS_FILE_PATH = "requirements.txt"
 
-def get_requirements(filename: str) -> list():
+def get_requirements(filename: str) -> list:
     """
     Get package name to install dependencies `requirements.txt`
 
@@ -42,7 +42,7 @@ def get_readme(filename: str) -> str:
 
 setup(
     name="text-summarization",
-    version="0.0.2",
+    version="0.0.21",
     author="realsanjeev",
     author_email="realsanjeev1@gmail.com",
     packages=find_packages(),

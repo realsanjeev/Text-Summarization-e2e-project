@@ -1,26 +1,26 @@
 # End-to-End Text Summarization Project
 
-## Installation of the Text Summarization Package
+## Setting Up the Environment
+
+1. Create a virtual environment and install the required packages:
 
 ```bash
+python3 -m venv venv
+source venv/bin/activate
 pip install .
 ```
 
-If the above command does not work, you can try:
-
-```bash
-python setup.py sdist
-```
+> **Note:** The application needs to be installed as a package to run properly. If you prefer to run it without installing the package, you'll need to modify the `import` statements. For guidance, refer to this [Stack Overflow answer](https://stackoverflow.com/questions/76932293/why-do-i-keep-getting-modulenotfounderror-no-module-named-src).
 
 ## Model Training
 
-To train the model, run the following command:
+To train the model, execute the following command:
 
 ```bash
 python src/pipeline/train_model.py
 ```
 
-Once the model is trained, initiate the web application by running either of the following commands:
+After training the model, start the web application using one of these commands:
 
 ```bash
 flask app
