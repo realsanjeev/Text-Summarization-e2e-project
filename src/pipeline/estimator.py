@@ -20,7 +20,7 @@ class PredictionPipeline:
         '''
         self.config = ConfigurationManager().get_model_evaluation_config()
         try:
-            self.tokenizer = AutoTokenizer.from_pretrained(self.config.tokenizer_path)
+            self.tokenizer = AutoTokenizer.from_pretrained(self.config.tokenizer_path, clean_up_tokenization_spaces=True)
         except Exception as err:
             raise CustomException(err, sys) from err
 

@@ -1,10 +1,11 @@
 import sys
 import torch
 import pandas as pd
+import evaluate
 
 from tqdm.auto import tqdm
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-from datasets import load_from_disk, load_metric
+from datasets import load_from_disk
 
 from src.configuration.config import ModelEvaluationConfig
 from src.logger import logging
@@ -80,14 +81,14 @@ class ModelEvaluation:
         logging.info('Model evaluation initiated')
         if device not in ["cpu", "cuda"] or device=='cuda':
             device = "cuda" if torch.cuda.is_available() else "cpu"
-        tokenizer = AutoTokenizer.from_pretrained(self.config.tokenizer_path, use_fast=False)
+        tokenizer = AutoTokenizer.from_pretrained(self.config.tokenizer_path, use_fast=False, clean_up_tokenization_spaces=True)
         model_pegasus = AutoModelForSeq2SeqLM.from_pretrained(self.config.model_path).to(device)
 
         #loading data
         dataset_loader = load_from_disk(self.config.data_path)
         rouge_names = ["rouge1", "rouge2", "rougeL", "rougeLsum"]
 
-        rouge_metric = load_metric('rouge')
+        rouge_metric = evaluate.load('rouge')
 
         score = self.calculate_metric(
         dataset=dataset_loader['test'][0:10], metric=rouge_metric,

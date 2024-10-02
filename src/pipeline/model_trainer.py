@@ -50,7 +50,7 @@ class ModelTrainer:
             prev_time = time.time()
 
             if tokenizer is None:
-                tokenizer = AutoTokenizer.from_pretrained(self.config.model_ckpt)
+                tokenizer = AutoTokenizer.from_pretrained(self.config.model_ckpt, clean_up_tokenization_spaces=True)
             model_save_path = os.path.join(self.config.root_dir, "pegasus-samsum-model")
 
             print("*"*34, model_save_path)

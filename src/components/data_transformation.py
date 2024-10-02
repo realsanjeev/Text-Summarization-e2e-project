@@ -12,7 +12,7 @@ class DataTransformation:
     def __init__(self, config: DataTransformationConfig):
         self.config = config
         self.tokenizer = AutoTokenizer.from_pretrained(
-            config.tokenizer_name, use_fast=False
+            config.tokenizer_name, use_fast=False, clean_up_tokenization_spaces=True
             )
 
     def convert_to_features(self, batch_data, tokenizer=None):

@@ -1,5 +1,6 @@
 accelerate
 datasets
+evaluate
 ipython
 pandas
 python-box
