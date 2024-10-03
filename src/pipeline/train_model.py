@@ -12,7 +12,6 @@ from src.exception import CustomException
 try:
     config = ConfigurationManager()
     data_ingestion_config = config.get_data_ingestion_config()
-    data_ingestion_config = config.get_data_ingestion_config()
     data_ingestion = DataIngestion(config=data_ingestion_config)
     data_ingestion.download_dataset()
     data_ingestion.extract_zip_file()
@@ -27,8 +26,8 @@ try:
     tokenizer = data_transformation.get_tokenizer()
 
     model_trainer_config = config.get_model_trainer_config()
-    model_trainer_config = ModelTrainer(config=model_trainer_config)
-    model_trainer_config.train(tokenizer=tokenizer)
+    model_trainer = ModelTrainer(config=model_trainer_config)
+    model_trainer.train(tokenizer=tokenizer)
 
     model_evaluation_config = config.get_model_evaluation_config()
     model_evaluation_config = ModelEvaluation(config=model_evaluation_config)

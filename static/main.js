@@ -2,28 +2,55 @@ const textarea = document.getElementById('text');
 
 const filesystem = null;
 
-function switchToDark() {
-  document.body.style.backgroundColor = "#5d5d5d";
-  document.getElementById('text').style.backgroundColor = '#2d2d2d';
-  textarea.style.backgroundColor = '#2d2d2d';
-  textarea.style.color = '#7d7d7d';
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('summarizeForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const loader = document.getElementById('loader');
+    const summarySection = document.getElementById('summarySection');
+    const summaryContent = document.getElementById('summaryContent');
 
-  const buttons = document.getElementsByClassName('buttons');
-  for (i = 0; i < buttons.length; i++) {
-    buttons[i].style.backgroundColor = '#3d3d3d';
-    buttons[i].style.borderColor = '#8d8d8d';
-    buttons[i].style.color = '#8d8d8d';
-  }
-}
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const text = document.getElementById('text').value;
+        if (!text.trim()) return;
 
-function switchToLight() {
-  document.body.style.backgroundColor = "#ebebeb";
-  textarea.style.backgroundColor = '#b5b5b5';
-  textarea.style.color = '#000000';
-  const buttons = document.getElementsByClassName('buttons');
-  for (i = 0; i < buttons.length; i++) {
-    buttons[i].style.backgroundColor = '#d6d6d6';
-    buttons[i].style.borderColor = '#a8a8a8';
-    buttons[i].style.color = '#616161'
-  }
-}
+        // Show loading state
+        submitBtn.disabled = true;
+        btnText.textContent = 'Summarizing...';
+        loader.classList.remove('hidden');
+        summarySection.classList.add('hidden');
+
+        try {
+            const formData = new FormData();
+            formData.append('script', text);
+
+            const response = await fetch('/', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            const html = await response.text();
+            
+            // Extract summary from the returned HTML (since backend returns full page)
+            // Ideally backend should return JSON, but we are keeping backend changes minimal for now
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newSummary = doc.getElementById('summaryContent').innerHTML;
+
+            summaryContent.innerHTML = newSummary;
+            summarySection.classList.remove('hidden');
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while summarizing. Please try again.');
+        } finally {
+            // Reset loading state
+            submitBtn.disabled = false;
+            btnText.textContent = 'Summarize Text';
+            loader.classList.add('hidden');
+        }
+    });
+});

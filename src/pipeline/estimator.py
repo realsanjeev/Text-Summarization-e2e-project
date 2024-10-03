@@ -21,8 +21,11 @@ class PredictionPipeline:
         self.config = ConfigurationManager().get_model_evaluation_config()
         try:
             self.tokenizer = AutoTokenizer.from_pretrained(self.config.tokenizer_path, clean_up_tokenization_spaces=True)
+            self.pipe = pipeline("summarization", model=self.config.model_path, tokenizer=self.tokenizer)
         except Exception as err:
-            raise CustomException(err, sys) from err
+            self.pipe = None
+            print(f"Warning: Could not load model or tokenizer. Prediction will fail. Error: {err}")
+            # We don't raise here to allow app to start, but predict will fail.
 
     def predict(self, text: str, max_length: int=64, num_beams: int=8) -> str:
         '''
@@ -43,10 +46,12 @@ class PredictionPipeline:
             >>> print(summary)
             "This is a summary of the long piece of text."
         '''
-        gen_kwargs = {"length_penalty": 0.8, "num_beams": num_beams, "max_length": max_length}
-        pipe = pipeline("summarization", model=self.config.model_path, tokenizer=self.tokenizer)
+        if self.pipe is None:
+             return "Error: Model not loaded. Please train the model first."
 
-        output = pipe(text, **gen_kwargs)[0]["summary_text"]
+        gen_kwargs = {"length_penalty": 0.8, "num_beams": num_beams, "max_length": max_length}
+
+        output = self.pipe(text, **gen_kwargs)[0]["summary_text"]
         print("\nModel Summary:")
         print(output)
         return output

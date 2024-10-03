@@ -1,42 +1,64 @@
-## Install text-summerization as package
+# Developer Guide & Notes
+
+This document contains technical details, troubleshooting tips, and explanations of specific design choices used in this project.
+
+## 📦 Package Installation
+
+The project is structured as a Python package. To install it in editable mode:
+
+```bash
+pip install -e .
 ```
-pip install .
-```
-If not work
-```
+
+If you encounter issues with the installation, you can try creating a source distribution:
+
+```bash
 python setup.py sdist
 ```
-## Access the value from key
+
+## 🔧 Configuration Management
+
+We use `python-box` to manage configuration dictionaries as objects. This allows for cleaner code access using dot notation.
+
+### Example: `ConfigBox`
+
 ```python
 from box import ConfigBox
-# in dict() type we cannot access using `dot method` data.key
-data = ConfigBox({"key": "value", "key1": "value1"})
-# data acess method
->>> data.key
-value
 
+# Standard Dictionary
+d = {"key": "value", "key1": "value1"}
+# d.key  # Raises AttributeError
+
+# ConfigBox
+d_box = ConfigBox({"key": "value", "key1": "value1"})
+print(d_box.key)  # Output: value
 ```
 
-## Ensure annotation in parameter
-`ensure_annotation` is decorator which **strongly(strictly)** ensure a singe data type is only passed through function
+## 🛡️ Type Safety
+
+We use the `@ensure_annotation` decorator to enforce type checking at runtime. This helps catch errors early, especially when dealing with configuration files and pipeline inputs.
+
+### Example: `@ensure_annotation`
+
 ```python
 from ensure import ensure_annotation
 
-# without ensure_annotation
-def get_product(x:int, y:  int):
-    '''
-    it works on integer passed as string
-    >>> get_product("4", 2)
-    44
-    '''
-    return x*y
-
 @ensure_annotation
-def get_product(x: int, y: int):
-    '''
-    it strictly only allowed integer datatype
-    >>> get_product("4", 2)
-    Error
-    '''
-    return x*y
+def get_product(x: int, y: int) -> int:
+    return x * y
+
+get_product(2, 4)    # Works: 8
+get_product(2, "4")  # Raises EnsureError
 ```
+
+## 📝 Logging
+
+Logs are stored in the `logs/` directory. Each run creates a new log file with a timestamp. This is crucial for debugging pipeline failures and tracking model training progress.
+
+## 🏗️ Project Components
+
+-   **Data Ingestion**: Downloads and extracts data.
+-   **Data Validation**: Checks if required files exist.
+-   **Data Transformation**: Tokenizes data for the model.
+-   **Model Trainer**: Fine-tunes the Pegasus model.
+-   **Model Evaluation**: Calculates ROUGE scores.

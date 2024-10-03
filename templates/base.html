@@ -4,21 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Summarization</title>
+    <title>Text Summarization | AI Powered</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='web-icon.png') }}">
 </head>
 
 <body>
-    <nav>
-        <h1 class="header">Text Summerization</h1 class="header">
-    </nav>
-    <input type="button" id="dark_mode" class="buttons" value="Dark Mode" onclick="switchToDark()"></input>
-    <input type="button" id="light_mode" class="buttons" value="Light Mode" onclick="switchToLight()"></input>
-    <br><br>
-    <div class="container">
-        {% block main_container %}
-        {% endblock %}
+    <div class="app-container">
+        <nav class="navbar">
+            <div class="logo">
+                <span class="logo-icon">✨</span>
+                <h1>Text Summarizer</h1>
+            </div>
+            <div class="nav-controls">
+                <!-- Theme toggle can go here if needed later -->
+            </div>
+        </nav>
+        
+        <main class="main-content">
+            {% block main_container %}
+            {% endblock %}
+        </main>
+
+        <footer class="footer">
+            <p>Powered by Pegasus Transformer</p>
+        </footer>
     </div>
     <script src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
